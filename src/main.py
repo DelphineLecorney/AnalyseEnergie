@@ -27,7 +27,7 @@ def main():
     # Tracer un graphique
     plt.plot(data['date'], data["consumption_kwh"], label="Consommation")
     plt.xlabel("Date")
-    
+
 
 if __name__ == "__main__":
     main()
