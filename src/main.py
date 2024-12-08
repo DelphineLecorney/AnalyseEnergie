@@ -1,18 +1,33 @@
 # src/main.py
 import os
-from generate_data import generate_data
-from analyse_data import analyse_data
+import pandas as pd
+import matplotlib.pyplot as plt
 
 def main():
-    # Étape 1 : Générer les données si elles n'existent pas déjà
-    data_file = 'data/energie_data.csv'
+    print("Bienvenue dans l'analyse énergétique")
+
+    # Vérifier si le fichier de données existe
+    data_file = os.path.join("data", "energy_data.csv")
     if not os.path.exists(data_file):
-        print("Génération des données...")
-        generate_data(data_file)
+        print("Aucun fichier de données trouvé")
+        return
     
-    # Étape 2 : Analyser les données
-    print("Analyse des données...")
-    analyse_data(data_file)
+    # Charger les données
+    print("Chargement des données...")
+    data = pd.read_csv(data_file)
+
+    print("Aperçu des données :")
+    print(data.head())
+
+    # Moyenne de consommation
+    if "consumption_kwh" in data.columns:
+        avg_consumption = data["consumption_kwh"].mean()
+        print(f'Consommation moyenne : {avg_consumption:,2f} kwh')
+
+    # Tracer un graphique
+    plt.plot(data['date'], data["consumption_kwh"], label="Consommation")
+    plt.xlabel("Date")
+    
 
 if __name__ == "__main__":
     main()
