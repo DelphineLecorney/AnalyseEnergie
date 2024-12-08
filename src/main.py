@@ -22,12 +22,15 @@ def main():
     # Moyenne de consommation
     if "consumption_kwh" in data.columns:
         avg_consumption = data["consumption_kwh"].mean()
-        print(f'Consommation moyenne : {avg_consumption:,2f} kwh')
+        print(f'La consommation moyenne est de : {avg_consumption:,.2f} kwh')
 
     # Tracer un graphique
     plt.plot(data['date'], data["consumption_kwh"], label="Consommation")
     plt.xlabel("Date")
-
+    plt.ylabel("Consommation (Kwh)")
+    plt.title("Consommation énergétique au fil du temps")
+    plt.legend()
+    plt.show()
 
 if __name__ == "__main__":
     main()
