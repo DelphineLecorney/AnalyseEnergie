@@ -19,7 +19,7 @@ def main():
     print("Aperçu des données :")
     print(data.head())
 
-    # Moyenne de consommation
+    # Moyenne, min, max, .. de consommation
     if "consumption_kwh" in data.columns:
         avg_consumption = data["consumption_kwh"].mean()
         max_consumption = data["consumption_kwh"].max()
@@ -51,15 +51,17 @@ def main():
     plt.legend()
     plt.show(block=False)
 
-    # # Tracer un deuxième graphique
+    # Tracer un deuxième graphique
     data['cost'] = data['consumption_kwh'] * data['price_per_kwh']
     plt.figure(figsize=(10, 6))
-    plt.bar(data['date'], data['cost'], color='orange', label="Coût quotidien (€)")
+    plt.bar(data['date'], data['cost'], color='mediumaquamarine', label="Coût quotidien (€)")
     plt.xlabel("Date")
     plt.ylabel("Coût (€)")
     plt.title("Coût quotidien de l'énergie consommée")
     plt.xticks(rotation=45)
     plt.legend()
+    total_cost_text = f"Coût total : {total_cost:,.2f} €"
+    plt.gcf().text(0.15, 0.85, total_cost_text, fontsize=12, color='red', bbox=dict(facecolor='white', alpha=0.8))
     plt.tight_layout()
     plt.show()
 
@@ -68,8 +70,6 @@ def main():
         print("Attention : Le fichier contient des valeurs manquantes. Veuillez les corriger.")
         print(data.isnull().sum())
         return
-
-
 
 
 
