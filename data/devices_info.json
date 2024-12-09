@@ -1,0 +1,24 @@
+{
+    "Appareils par date": [
+        {
+            "date": "2024-01-01",
+            "appareils": "Fridge, Oven"
+        },
+        {
+            "date": "2024-01-02",
+            "appareils": "Fridge, TV"
+        },
+        {
+            "date": "2024-01-03",
+            "appareils": "Fridge, Oven, Washing Machine"
+        },
+        {
+            "date": "2024-01-04",
+            "appareils": "Fridge, Heater"
+        },
+        {
+            "date": "2024-01-05",
+            "appareils": "Fridge, Oven, Dryer"
+        }
+    ]
+}

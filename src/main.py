@@ -2,6 +2,7 @@
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+import json
 
 def main():
     print("Bienvenue dans l'analyse énergétique")
@@ -11,7 +12,7 @@ def main():
     if not os.path.exists(data_file):
         print("Aucun fichier de données trouvé")
         return
-    
+
     # Charger les données
     print("Chargement des données...")
     data = pd.read_csv(data_file)
@@ -19,7 +20,7 @@ def main():
     print("Aperçu des données :")
     print(data.head())
 
-    # Moyenne, min, max, .. de consommation
+    # Moyenne de consommation
     if "consumption_kwh" in data.columns:
         avg_consumption = data["consumption_kwh"].mean()
         max_consumption = data["consumption_kwh"].max()
@@ -31,17 +32,47 @@ def main():
         print(f'La consommation minimale est de : {min_consumption:,.2f} kwh')
         print(f'Le coût total de l\énergie consommée est de : {total_cost:,.2f} €')
 
-    results = {
-    "Moyenne consommation (Kwh)": [avg_consumption],
-    "Max consommation (Kwh)": [max_consumption],
-    "Min consommation (Kwh)": [min_consumption],
-    "Coût total (€)": [total_cost]
-}
+    # liste ou description d'appareils)
+    if "devices" in data.columns:
+        # Assurez-vous que la colonne n'a pas de valeurs manquantes
+        if data["devices"].isnull().any():
+            print("Attention : Certaines lignes de la colonne 'devices' sont vides.")
+        
+        # Extraire les appareils et afficher les informations
+        device_list = data["devices"].dropna().unique()  # Liste unique des appareils
+        print("Liste des appareils :", device_list)
+    else:
+        print("La colonne 'devices' n'existe pas dans les données.")
+        device_list = []  # Liste vide si la colonne n'existe pas
 
-    results_df = pd.DataFrame(results)
-    results_file = os.path.join("data", "results.csv")
-    results_df.to_csv(results_file, index=False)
-    print(f"Les résultats ont été sauvegardés dans {results_file}")
+
+    # Résultats statistiques
+    stats = {
+        "Moyenne consommation (Kwh)": avg_consumption,
+        "Max consommation (Kwh)": max_consumption,
+        "Min consommation (Kwh)": min_consumption,
+        "Coût total (€)": total_cost
+    }
+
+    # Créer une structure avec les dates et appareils
+    device_info = {
+        "Appareils par date": [
+            {"date": row["date"], "appareils": row.get("devices", "N/A")} 
+            for _, row in data.iterrows()
+        ]
+    }
+
+    # Sauvegarder les statistiques dans un fichier CSV
+    stats_df = pd.DataFrame([stats])
+    stats_file = os.path.join("data", "statistics_.csv")
+    stats_df.to_csv(stats_file, index=False)
+    print(f"Les statistiques ont été sauvegardées dans {stats_file}")
+
+    # Sauvegarder les informations sur les appareils dans un fichier JSON
+    devices_file = os.path.join("data", "devices_info.json")
+    with open(devices_file, 'w') as f:
+        json.dump(device_info, f, indent=4)
+    print(f"Les informations sur les appareils ont été sauvegardées dans {devices_file}")
 
     # Tracer un graphique
     plt.plot(data['date'], data["consumption_kwh"], label="Consommation")
@@ -55,21 +86,14 @@ def main():
     data['cost'] = data['consumption_kwh'] * data['price_per_kwh']
     plt.figure(figsize=(10, 6))
     plt.bar(data['date'], data['cost'], color='mediumaquamarine', label="Coût quotidien (€)")
+    for i, row in data.iterrows():
+        plt.text(row['date'], row['cost'], row.get('devices', 'N/A'), ha='center', fontsize=8, rotation=45)
     plt.xlabel("Date")
     plt.ylabel("Coût (€)")
     plt.title("Coût quotidien de l'énergie consommée")
-    plt.xticks(rotation=45)
     plt.legend()
-    total_cost_text = f"Coût total : {total_cost:,.2f} €"
-    plt.gcf().text(0.15, 0.85, total_cost_text, fontsize=12, color='red', bbox=dict(facecolor='white', alpha=0.8))
     plt.tight_layout()
     plt.show()
-
-
-    if data.isnull().values.any():
-        print("Attention : Le fichier contient des valeurs manquantes. Veuillez les corriger.")
-        print(data.isnull().sum())
-        return
 
 
 
