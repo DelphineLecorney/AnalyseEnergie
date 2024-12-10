@@ -18,13 +18,12 @@ def main():
     data = pd.read_csv(data_file)
 
     # Vérifier si les colonnes nécessaires sont présentes
-    required_columns = {"date", "index", "price_per_kwh", "devices"}
+    required_columns = {"date", "index", "price_per_kwh", "devices", 'temps'}
     if not required_columns.issubset(data.columns):
         raise ValueError(f"Les colonnes suivantes sont nécessaires : {required_columns}")
 
     # Calculer la consommation (différence entre indices)
     data["consumption_kwh"] = data["index"].diff().fillna(0)
-    data["consumption_kwh"] = data["consumption_kwh"].clip(lower=0)  # Éviter les valeurs négatives
 
     # Sauvegarder les données mises à jour dans le fichier CSV
     output_file = "data/updated_energy.csv"
@@ -69,19 +68,34 @@ def main():
     plt.tight_layout()
     plt.show(block=False)
 
-    # Tracer un graphique du coût quotidien
+    # Tracer un graphique du coût quotidien avec le temps
     data["cost"] = data["consumption_kwh"] * data["price_per_kwh"]
-    plt.figure(figsize=(10, 5))
-    plt.bar(data["date"], data["cost"], color="mediumaquamarine", label="Coût quotidien (€)")
-    for i, row in data.iterrows():
-        plt.text(row['date'], row['cost'], row.get('devices', 'N/A'), ha='center', fontsize=8, rotation=45)
+
+
+    # Configuration du graphique
+    plt.figure(figsize=(10, 6))
+
+    # Barres pour le coût quotidien
+    bars = plt.bar(data["date"], data["cost"], color="mediumaquamarine", width=0.6, label="Coût quotidien (€)")
+
+    # Ajouter les noms des conditions météorologiques avec leur couleur
+    for bar, (_, row) in zip(bars, data.iterrows()):
+        # Ajouter le texte correspondant à la météo
+        plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height(), row["temps"], 
+                ha="center", va="bottom", fontsize=10, color="black", fontweight="bold")
+        plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height(), row["devices"], 
+                ha="center", va="center", fontsize=10, color="black", fontweight="bold")
+
+    # Ajouter les labels d'axe et le titre
     plt.xlabel("Date")
     plt.ylabel("Coût (€)")
-    plt.title("Coût énergétique quotidien")
+    plt.title("Coût énergétique quotidien avec conditions météorologiques")
     plt.legend()
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
+
+
 
 if __name__ == "__main__":
     main()
