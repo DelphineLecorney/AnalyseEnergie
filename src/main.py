@@ -57,43 +57,66 @@ def main():
         json.dump(stats, f, indent=4)
     print(f"Statistiques sauvegardées dans : {stats_file}")
 
-    # Tracer un graphique de la consommation
+    # Calculer le coût quotidien
+    data["cost"] = data["consumption_kwh"] * data["price_per_kwh"]
+    
+    # Tracer un graphique du coût énergétique quotidien
     plt.figure(figsize=(10, 5))
-    plt.plot(data["date"], data["consumption_kwh"], marker="o", label="Consommation (kWh)")
+    plt.plot(data["date"], data["cost"], marker="o", label="Coût quotidien (€)", color="teal")
     plt.xlabel("Date")
-    plt.ylabel("Consommation (kWh)")
-    plt.title("Consommation énergétique journalière")
+    plt.ylabel("Coût (€)")
+    plt.title("Coût énergétique quotidien")
     plt.legend()
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show(block=False)
 
-    # Tracer un graphique du coût quotidien avec le temps
-    data["cost"] = data["consumption_kwh"] * data["price_per_kwh"]
 
 
-    # Configuration du graphique
+
+    # Définir les couleurs en fonction des conditions météorologiques
+    weather_colors = {
+        "pluie": "gray",
+        "soleil": "gold",
+        "mitigé": "orange"
+    }
+
+    # Ajouter une colonne de couleur à chaque ligne pour uniformiser
+    data["color"] = data["temps"].map(weather_colors)
+
+    # Créer le graphique
     plt.figure(figsize=(10, 6))
 
-    # Barres pour le coût quotidien
-    bars = plt.bar(data["date"], data["cost"], color="mediumaquamarine", width=0.6, label="Coût quotidien (€)")
+    # Tracer les barres avec les couleurs définies par la météo
+    bars = plt.bar(data["date"], data["consumption_kwh"], color=data["color"], width=0.6, label="Consommation quotidienne (kWh)")
 
-    # Ajouter les noms des conditions météorologiques avec leur couleur
+    # Ajouter les noms des appareils à l'intérieur des barres
     for bar, (_, row) in zip(bars, data.iterrows()):
-        # Ajouter le texte correspondant à la météo
-        plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height(), row["temps"], 
-                ha="center", va="bottom", fontsize=10, color="black", fontweight="bold")
-        plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height(), row["devices"], 
-                ha="center", va="center", fontsize=10, color="black", fontweight="bold")
+        # Liste des appareils à afficher
+        devices = row["devices"].split(", ")  # Séparer les appareils par une virgule
+        device_text = "\n".join(devices)  # Les mettre chacun sur une nouvelle ligne
+        
+        # Ajouter le texte des appareils à l'intérieur des barres
+        plt.text(
+            bar.get_x() + bar.get_width() / 2,  # Position X centrée
+            bar.get_height() / 2,  # Position Y à mi-hauteur
+            device_text,  # Texte des appareils
+            ha="center", va="center", fontsize=8, color="white", fontweight="bold"
+        )
+
+    # Ajouter une légende pour les couleurs météo
+    for weather, color in weather_colors.items():
+        plt.bar(0, 0, color=color, label=f"{weather.capitalize()}")  # Barres invisibles pour la légende
 
     # Ajouter les labels d'axe et le titre
     plt.xlabel("Date")
-    plt.ylabel("Coût (€)")
-    plt.title("Coût énergétique quotidien avec conditions météorologiques")
+    plt.ylabel("Consommation (kWh)")
+    plt.title("Consommation énergétique quotidienne avec conditions météorologiques et appareils")
     plt.legend()
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
+
 
 
 
