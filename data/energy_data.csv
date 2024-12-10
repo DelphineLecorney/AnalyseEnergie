@@ -1,6 +1,6 @@
-date,consumption_kwh,price_per_kwh,devices
-2024-01-01,50,0.12,"Fridge, Oven"
-2024-01-02,55,0.11,"Fridge, TV"
-2024-01-03,60,0.10,"Fridge, Oven, Washing Machine"
-2024-01-04,65,0.13,"Fridge, Heater"
-2024-01-05,70,0.12,"Fridge, Oven, Dryer"
+date,index,price_per_kwh,devices
+2024-01-01,10200,0.12,"Fridge, Oven"
+2024-01-02,10300,0.11,"Fridge, TV"
+2024-01-03,10400,0.10,"Fridge, Oven, Washing Machine"
+2024-01-04,10500,0.13,"Fridge, Heater"
+2024-01-05,10600,0.12,"Fridge, Oven, Dryer"
