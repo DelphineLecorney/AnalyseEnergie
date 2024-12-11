@@ -1,6 +1,6 @@
 date,index,price_per_kwh,devices,temps,consumption_kwh
 2024-01-01,10200,0.12,"Fridge, Oven",pluie,0.0
-2024-01-02,10350,0.11,"Fridge, TV",pluie,150.0
+2024-01-02,10350,0.11,"Fridge, TV",mitigé,150.0
 2024-01-03,10400,0.1,"Fridge, Oven, Washing Machine",pluie,50.0
 2024-01-04,10700,0.13,"Fridge, Heater",mitigé,300.0
-2024-01-05,10710,0.02,"Fridge, Oven, Dryer",soleil,10.0
+2024-01-05,10710,0.12,"Fridge, Oven, Dryer",soleil,10.0
