@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 from matplotlib.dates import DateFormatter
 import plotly.graph_objects as go
 import plotly.io as pio
+import numpy as np
+
 
 def plot_data(data):
 
@@ -21,12 +23,17 @@ def plot_data(data):
 
     # Affichage des barres de consommation
     bars = ax1.bar(
-    data["date"],
-    data["consumption_kwh"],
-    color=data["color"],
-    width=0.7,
-    label="Consommation (kWh)"
-)
+        data["date"],
+        data["consumption_kwh"],
+        color=data["color"],
+        width=0.7,
+        label="Consommation (kWh)"
+    )
+
+    # Ligne de consommation moyenne
+    avg = data["consumption_kwh"].mean()
+    ax1.axhline(avg, color="darkslategray", linestyle=":", linewidth=2, label="Moyenne Conso")
+
 
     ax1.set_ylabel("Consommation (kWh)", color="black")
     ax1.tick_params(axis="y", labelcolor="black")
@@ -68,23 +75,27 @@ def plot_data_interactive(data):
         "gris": "dimgray"
     }
     data["color"] = data["temps"].map(weather_colors)
+    customdata = np.stack((data["temps"], data["devices"]), axis=-1)
+
 
     # Création d'une figure Plotly
     fig = go.Figure()
 
-    # Ajout des barres de consommation
+    avg_consumption = data["consumption_kwh"].mean()
+
     fig.add_trace(go.Bar(
-        x=data["date"],
-        y=data["consumption_kwh"],
-        name="Consommation (kWh)",
-        marker_color=data["color"],
-        text=data["devices"],  # gardé pour le hover
-        textposition='none',   # pas de texte directement sur les barres
-        hovertemplate='<b>Date:</b> %{x}<br>' +
-                    '<b>Conso:</b> %{y} kWh<br>' +
-                    '<b>Appareils:</b><br>%{text}<extra></extra>',
-        yaxis='y1'
-    ))
+    x=data["date"],
+    y=data["consumption_kwh"],
+    name="Consommation (kWh)",
+    marker_color=data["color"],
+    customdata=customdata,
+    hovertemplate='<b>Date:</b> %{x}<br>' +
+                  '<b>Conso:</b> %{y} kWh<br>' +
+                  '<b>Météo:</b> %{customdata[0]}<br>' +
+                  '<b>Appareils:</b><br>%{customdata[1]}<extra></extra>',
+    yaxis='y1'
+))
+
 
     # Ajout de la courbe des coûts
     fig.add_trace(go.Scatter(
@@ -97,6 +108,19 @@ def plot_data_interactive(data):
         hovertemplate='<b>Date:</b> %{x}<br>' +
                       '<b>Coût:</b> %{y:.2f} €<extra></extra>'
     ))
+    
+    
+    # 4. Ligne de moyenne de consommation 
+    fig.add_trace(go.Scatter(
+        x=data["date"],
+        y=[avg_consumption] * len(data),
+        mode="lines",
+        name="Moyenne Conso",
+        line=dict(color="darkslategray", dash="dot"),
+        hoverinfo="skip",
+        yaxis='y1'
+    ))
+
 
     # Mise en page avec axes doubles
     fig.update_layout(
