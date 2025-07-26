@@ -3,6 +3,7 @@ from matplotlib.dates import DateFormatter
 import plotly.graph_objects as go
 import plotly.io as pio
 import numpy as np
+import matplotlib.dates as mdates
 
 
 def plot_data(data):
@@ -46,6 +47,9 @@ def plot_data(data):
 
     # Format de la date sur l’axe X
     ax1.xaxis.set_major_formatter(DateFormatter("%Y-%m-%d"))
+    ax1.xaxis.set_major_locator(mdates.AutoDateLocator())
+    fig.autofmt_xdate(rotation=45)
+
 
     # Création des légendes météo + séries
     weather_legend = [plt.Line2D([0], [0], color=color, lw=4) for color in weather_colors.values()]
@@ -125,7 +129,11 @@ def plot_data_interactive(data):
     # Mise en page avec axes doubles
     fig.update_layout(
         title="Consommation énergétique quotidienne (interactif)",
-        xaxis=dict(title="Date"),
+        xaxis=dict(
+            title="Date",
+            tickangle=45,
+            tickformat="%Y-%m-%d"
+        ),
         yaxis=dict(title="Consommation (kWh)", side="left"),
         yaxis2=dict(
             title="Coût (€)",
@@ -134,7 +142,7 @@ def plot_data_interactive(data):
             showgrid=False
         ),
         legend=dict(x=0.01, y=1.15, orientation="h"),
-        hovermode="x unified",  # Affiche toutes les infos en un seul encart
+        hovermode="x unified",
         template="plotly_white"
     )
 
