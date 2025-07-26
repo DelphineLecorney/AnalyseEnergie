@@ -68,8 +68,12 @@ def plot_data(data):
     plt.tight_layout()
     plt.show()  # Fenêtre interactive à fermer manuellement
 
+
+
+"""Affichage interactif avec Plotly dans le navigateur."""
+
 def plot_data_interactive(data):
-    """Affichage interactif avec Plotly dans le navigateur."""
+    
 
     # Couleurs météo
     weather_colors = {
@@ -79,26 +83,35 @@ def plot_data_interactive(data):
         "gris": "dimgray"
     }
     data["color"] = data["temps"].map(weather_colors)
-    customdata = np.stack((data["temps"], data["devices"]), axis=-1)
-
+    avg_consumption = data["consumption_kwh"].mean()
 
     # Création d'une figure Plotly
     fig = go.Figure()
 
-    avg_consumption = data["consumption_kwh"].mean()
+    weather_types = list(weather_colors.keys())
+    bar_traces = []
 
-    fig.add_trace(go.Bar(
-    x=data["date"],
-    y=data["consumption_kwh"],
-    name="Consommation (kWh)",
-    marker_color=data["color"],
-    customdata=customdata,
-    hovertemplate='<b>Date:</b> %{x}<br>' +
-                  '<b>Conso:</b> %{y} kWh<br>' +
-                  '<b>Météo:</b> %{customdata[0]}<br>' +
-                  '<b>Appareils:</b><br>%{customdata[1]}<extra></extra>',
-    yaxis='y1'
-))
+    # Barres de consommation pour chaque météo
+    for weather in weather_types:
+        filtered = data[data["temps"] == weather]
+        custom_filtered = np.stack((filtered["temps"], filtered["devices"]), axis=-1)
+
+        trace = go.Bar(
+            x=filtered["date"],
+            y=filtered["consumption_kwh"],
+            name=f"Conso ({weather})",
+            marker_color=weather_colors[weather],
+            customdata=custom_filtered,
+            hovertemplate='<b>Date:</b> %{x}<br>' +
+                          '<b>Conso:</b> %{y} kWh<br>' +
+                          '<b>Météo:</b> %{customdata[0]}<br>' +
+                          '<b>Appareils:</b><br>%{customdata[1]}<extra></extra>',
+            yaxis='y1',
+            visible=True
+        )
+
+        fig.add_trace(trace)
+        bar_traces.append(trace)
 
 
     # Ajout de la courbe des coûts
@@ -110,11 +123,12 @@ def plot_data_interactive(data):
         marker=dict(color="teal"),
         yaxis='y2',
         hovertemplate='<b>Date:</b> %{x}<br>' +
-                      '<b>Coût:</b> %{y:.2f} €<extra></extra>'
+                      '<b>Coût:</b> %{y:.2f} €<extra></extra>',
+        visible=True
     ))
     
     
-    # 4. Ligne de moyenne de consommation 
+    # Ligne de moyenne de consommation 
     fig.add_trace(go.Scatter(
         x=data["date"],
         y=[avg_consumption] * len(data),
@@ -122,9 +136,31 @@ def plot_data_interactive(data):
         name="Moyenne Conso",
         line=dict(color="darkslategray", dash="dot"),
         hoverinfo="skip",
-        yaxis='y1'
+        yaxis='y1',
+        visible=True
     ))
 
+    # Menu déroulant
+    buttons = []
+
+    # Bouton "Toutes"
+    visible_all = [True] * len(bar_traces) + [True, True]
+    buttons.append(dict(
+        label="Toutes",
+        method="update",
+        args=[{"visible": visible_all}]
+    ))
+
+    # Boutons par météo
+    for i, weather in enumerate(weather_types):
+        visible = [False] * len(bar_traces)
+        visible[i] = True
+        visible += [True, True]  # coût + moyenne
+        buttons.append(dict(
+            label=weather.capitalize(),
+            method="update",
+            args=[{"visible": visible}]
+        ))
 
     # Mise en page avec axes doubles
     fig.update_layout(
