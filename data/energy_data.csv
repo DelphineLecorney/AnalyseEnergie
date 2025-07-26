@@ -1,5 +1,6 @@
 date,index,price_per_kwh,devices,temps
-2024-12-07,8293,0.12,"Fridge, Oven","pluie"
+2024-12-06,8000,0.12,"Fridge","soleil"
+2024-12-07,8100,0.12,"Fridge, Oven","pluie"
 2024-12-08,8300,0.11,"Fridge, TV","mitigé"
 2024-12-09,7800,0.12,"Fridge, Oven, Dryer","soleil"
 2024-12-10,7648,0.09,"Fridge, Dryer","mitigé"
