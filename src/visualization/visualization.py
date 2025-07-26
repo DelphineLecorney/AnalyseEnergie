@@ -20,24 +20,16 @@ def plot_data(data):
     fig, ax1 = plt.subplots(figsize=(10, 6))
 
     # Affichage des barres de consommation
-    bars = ax1.bar(data["date"], data["consumption_kwh"], color=data["color"], width=0.6, label="Consommation (kWh)")
+    bars = ax1.bar(
+    data["date"],
+    data["consumption_kwh"],
+    color=data["color"],
+    width=0.7,
+    label="Consommation (kWh)"
+)
+
     ax1.set_ylabel("Consommation (kWh)", color="black")
     ax1.tick_params(axis="y", labelcolor="black")
-
-    # Affichage du nom des appareils sur chaque barre
-    for bar, (_, row) in zip(bars.patches, data.iterrows()):
-        devices = row["devices"].split(", ")
-        device_text = "\n".join(devices)
-        if bar.get_height() < 1:
-            # Appareils au-dessus si barre trop petite
-            plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1,
-                     device_text, ha="center", va="bottom", fontsize=10,
-                     color="black", fontweight="bold")
-        else:
-            # Appareils à l'intérieur de la barre
-            plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() / 2,
-                     device_text, ha="center", va="bottom", fontsize=8,
-                     color="white", fontweight="bold")
 
     # Deuxième axe Y pour le coût (€)
     ax2 = ax1.twinx()
@@ -51,12 +43,17 @@ def plot_data(data):
     # Création des légendes météo + séries
     weather_legend = [plt.Line2D([0], [0], color=color, lw=4) for color in weather_colors.values()]
     weather_labels = [weather.capitalize() for weather in weather_colors.keys()]
-    series_legend = ax1.get_legend_handles_labels()[0] + ax2.get_legend_handles_labels()[0]
-    series_labels = ["Bar consommation", "Coût quotidien (€)"]
+    handles1, labels1 = ax1.get_legend_handles_labels()
+    handles2, labels2 = ax2.get_legend_handles_labels()
 
     # Affichage de la légende complète
-    plt.legend(weather_legend + series_legend, weather_labels + series_labels, loc="upper left", ncol=1)
     plt.title("Consommation énergétique quotidienne avec conditions météorologiques")
+    plt.legend(
+        weather_legend + handles1 + handles2,
+        weather_labels + labels1 + labels2,
+        loc="upper left",
+        ncol=1
+    )
     plt.tight_layout()
     plt.show()  # Fenêtre interactive à fermer manuellement
 
@@ -81,10 +78,11 @@ def plot_data_interactive(data):
         y=data["consumption_kwh"],
         name="Consommation (kWh)",
         marker_color=data["color"],
-        text=data["devices"],  # Appareils dans info-bulle
+        text=data["devices"],  # gardé pour le hover
+        textposition='none',   # pas de texte directement sur les barres
         hovertemplate='<b>Date:</b> %{x}<br>' +
-                      '<b>Conso:</b> %{y} kWh<br>' +
-                      '<b>Appareils:</b><br>%{text}<extra></extra>',
+                    '<b>Conso:</b> %{y} kWh<br>' +
+                    '<b>Appareils:</b><br>%{text}<extra></extra>',
         yaxis='y1'
     ))
 
