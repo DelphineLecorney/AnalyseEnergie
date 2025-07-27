@@ -1,48 +1,46 @@
 date,index,price_per_kwh,devices,temps
-2024-12-06,8000,0.12,"Fridge","soleil"
-2024-12-07,8100,0.12,"Fridge, Oven","pluie"
-2024-12-08,8300,0.11,"Fridge, TV","mitigé"
-2024-12-09,7800,0.12,"Fridge, Oven, Dryer","soleil"
-2024-12-10,7648,0.09,"Fridge, Dryer","mitigé"
-2024-12-11,7700,0.09,"Fridge, Dryer","mitigé"
-2024-12-12,7750,0.10,"Fridge, Oven","pluie"
-2024-12-13,7900,0.11,"Fridge, TV, PC","gris"
-2024-12-14,8050,0.13,"Fridge, Oven, TV","soleil"
-2024-12-15,8100,0.12,"Fridge, Dryer","mitigé"
-2024-12-16,8200,0.11,"Fridge, TV","pluie"
-2024-12-17,8000,0.10,"Fridge, Oven","soleil"
-2024-12-18,8450,0.10,"Fridge, TV, Dryer","gris"
-2024-12-19,8600,0.09,"Fridge, TV","mitigé"
-2024-12-20,8700,0.12,"Fridge, Oven, Dryer","pluie"
-2024-12-21,8800,0.13,"Fridge","soleil"
-2024-12-22,8950,0.12,"Fridge, Oven","gris"
-2024-12-23,9000,0.11,"Fridge, Dryer","mitigé"
-2024-12-24,9250,0.10,"Fridge, TV, PC","soleil"
-2024-12-25,9400,0.09,"Fridge, Oven","pluie"
-2024-12-26,9550,0.11,"Fridge, Dryer","gris"
-2024-12-27,9700,0.12,"Fridge, TV, Oven","mitigé"
-2024-12-28,9850,0.10,"Fridge, Oven","soleil"
-2024-12-29,10000,0.11,"Fridge, Dryer","pluie"
-2024-12-30,10150,0.12,"Fridge, TV","gris"
-2024-12-31,10300,0.13,"Fridge, PC","soleil"
-2025-01-01,10450,0.14,"Fridge, Oven","pluie"
-2025-01-02,10600,0.13,"Fridge, TV","gris"
-2025-01-03,10760,0.12,"Fridge, Dryer","soleil"
-2025-01-04,10910,0.13,"Fridge, Oven, PC","mitigé"
-2025-01-05,11060,0.11,"Fridge, Oven","soleil"
-2025-01-06,11200,0.10,"Fridge, TV, Dryer","gris"
-2025-01-07,11340,0.12,"Fridge, Dryer","pluie"
-2025-01-08,11490,0.11,"Fridge, Oven, TV","soleil"
-2025-01-09,11630,0.13,"Fridge, Oven, PC","mitigé"
-2025-01-10,11770,0.12,"Fridge, TV","gris"
-2025-01-11,11920,0.11,"Fridge, Dryer, TV","soleil"
-2025-01-12,12060,0.10,"Fridge, Oven","pluie"
-2025-01-13,12210,0.13,"Fridge, TV, PC","gris"
-2025-01-14,12000,0.14,"Fridge, Oven, Dryer","mitigé"
-2025-01-15,12500,0.12,"Fridge, Oven","soleil"
-2025-01-16,12640,0.11,"Fridge, Dryer","gris"
-2025-01-17,12790,0.13,"Fridge, TV","pluie"
-2025-01-18,12930,0.12,"Fridge, Oven, Dryer","mitigé"
-2025-01-19,13080,0.10,"Fridge, Oven, TV, PC, Dryer","soleil"
-2025-01-20,13230,0.09,"Fridge, Oven","gris"
-
+2024-12-06,8182,0.11,"Washer, Router, Fridge",pluie
+2024-12-07,8353,0.09,"Microwave, Heater, Toaster",pluie
+2024-12-08,8548,0.1,"Coffee Machine, Toaster, Router, Oven",mitigé
+2024-12-09,8603,0.15,"Router, AC",pluie
+2024-12-10,8681,0.12,"Dryer, Heater, Coffee Machine, AC, Oven",gris
+2024-12-11,8752,0.12,"Oven, Lamp, Coffee Machine, Router",gris
+2024-12-12,8904,0.14,Heater,soleil
+2024-12-13,8972,0.09,"Dryer, Microwave, Coffee Machine, Dishwasher, PC, TV",gris
+2024-12-14,9066,0.1,AC,soleil
+2024-12-15,9159,0.12,"TV, Toaster, Dishwasher, Fridge",mitigé
+2024-12-16,9254,0.13,"Fridge, Washer, Dishwasher",soleil
+2024-12-17,9366,0.09,"Toaster, Dryer, AC, Oven",soleil
+2024-12-18,9546,0.13,TV,pluie
+2024-12-19,9693,0.11,"Coffee Machine, Lamp, Microwave, Fridge, PC, Washer",mitigé
+2024-12-20,9893,0.1,"Lamp, Dishwasher, Dryer, Fridge, Microwave, Toaster",mitigé
+2024-12-21,10052,0.12,"Coffee Machine, Lamp, Dryer, Toaster, Washer, PC",gris
+2024-12-22,10129,0.12,"Dryer, Washer, PC",mitigé
+2024-12-23,10283,0.1,Toaster,soleil
+2024-12-24,10476,0.12,"Dishwasher, Fridge, PC",gris
+2024-12-25,10639,0.1,Router,gris
+2024-12-26,10771,0.11,"Microwave, AC, Washer, Dryer",pluie
+2024-12-27,10873,0.12,"Router, Microwave, Toaster, Heater",gris
+2024-12-28,10969,0.1,"Dishwasher, Lamp",soleil
+2024-12-29,11163,0.1,"Fridge, Dryer, Router",mitigé
+2024-12-30,11275,0.09,"Oven, Washer, Microwave",gris
+2024-12-31,11472,0.12,"Router, Dryer, Microwave, Coffee Machine, Oven, Dishwasher",pluie
+2025-01-01,11619,0.12,"AC, Toaster",soleil
+2025-01-02,11803,0.13,Fridge,mitigé
+2025-01-03,11945,0.15,"Dryer, Router, PC, Dishwasher, TV, Washer",soleil
+2025-01-04,12097,0.12,"Dryer, Lamp",pluie
+2025-01-05,12200,0.11,"Router, Fridge",pluie
+2025-01-06,12319,0.09,"AC, Dishwasher, PC, Toaster",mitigé
+2025-01-07,12479,0.14,"Oven, AC, PC, Lamp",pluie
+2025-01-08,12540,0.12,Dishwasher,mitigé
+2025-01-09,12661,0.15,"Lamp, Dryer, Heater",soleil
+2025-01-10,12721,0.14,"Washer, Dishwasher",mitigé
+2025-01-11,12833,0.14,"Router, Fridge, Microwave, AC, TV",gris
+2025-01-12,12890,0.11,"Oven, Dishwasher, Microwave, Toaster, Router",gris
+2025-01-13,13017,0.1,"Dryer, AC, Toaster, Washer, Lamp",pluie
+2025-01-14,13146,0.11,"Dishwasher, Fridge, Coffee Machine",mitigé
+2025-01-15,13305,0.14,TV,soleil
+2025-01-16,13404,0.11,"Toaster, Dishwasher, Oven, Washer, TV, Lamp",mitigé
+2025-01-17,13594,0.11,"PC, Toaster",soleil
+2025-01-18,13681,0.14,"Fridge, Washer, Microwave",pluie
+2025-01-19,13776,0.09,Toaster,soleil

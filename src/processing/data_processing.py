@@ -12,6 +12,8 @@ def load_data(data_file):
         raise ValueError(f"Les colonnes nécessaires sont : {required_columns}")
 
     data["date"] = pd.to_datetime(data["date"])
+    data = data.sort_values("date") 
     data["consumption_kwh"] = data["index"].diff().fillna(0)
     data["cost"] = data["consumption_kwh"] * data["price_per_kwh"]
+    
     return data

@@ -7,7 +7,7 @@ import matplotlib.dates as mdates
 import os
 
 
-def plot_data(data):
+def plot_data(data, in_streamlit=False):
 
     # Couleurs associées à chaque type de météo
     weather_colors = {
@@ -19,6 +19,7 @@ def plot_data(data):
 
     # Ajout d'une colonne 'color' en fonction de la météo
     data["color"] = data["temps"].map(weather_colors)
+    data["color"] = data["color"].fillna("crimson")
 
     # Création de la figure avec un axe principal (consommation)
     fig, ax1 = plt.subplots(figsize=(10, 6))
@@ -82,8 +83,15 @@ def plot_data(data):
 
     plt.tight_layout()
     plt.savefig(os.path.join(images_dir, "plot_static.png"), dpi=300)
-    plt.show()  # Fenêtre interactive à fermer manuellement
 
+    try:
+        import streamlit as st
+        if in_streamlit:
+            st.pyplot(fig)
+        else:
+            plt.show()
+    except ImportError:
+        plt.show()
 
 
 """Affichage interactif avec Plotly dans le navigateur."""
@@ -98,6 +106,7 @@ def plot_data_interactive(data):
         "gris": "dimgray"
     }
     data["color"] = data["temps"].map(weather_colors)
+    data["color"] = data["color"].fillna("crimson")
     avg_consumption = data["consumption_kwh"].mean()
 
     # Création d'une figure Plotly
