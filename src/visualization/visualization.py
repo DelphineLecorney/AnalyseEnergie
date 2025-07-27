@@ -75,11 +75,13 @@ def plot_data(data):
             break
         current_dir = parent_dir
 
-    images_dir = os.path.join(current_dir, "images")
-    #os.makedirs(images_dir, exist_ok=True)
+    
 
-    plt.savefig(os.path.join(images_dir, "plot_static.png"), dpi=300)
+    images_dir = os.path.join(current_dir, "images")
+    os.makedirs(images_dir, exist_ok=True)
+
     plt.tight_layout()
+    plt.savefig(os.path.join(images_dir, "plot_static.png"), dpi=300)
     plt.show()  # Fenêtre interactive à fermer manuellement
 
 

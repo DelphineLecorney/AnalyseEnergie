@@ -34,26 +34,18 @@ Structure du projet :
 
 ```
 
-
 ## 🔍 Fonctionnalités principales
 
-📥 Chargement intelligent des données CSV
+- 📥 Chargement intelligent des données CSV
+- 📈 Graphiques :
+  - Statique (Matplotlib)
+  - Interactif (Plotly, avec filtres météo)
+- 🧮 Calculs statistiques :
+  - Moyenne / max / min consommation
+  - Coût total
+- 🧠 Notebook d’analyse complémentaire
+- ✅ Interface ligne de commande pour exécuter les étapes
 
-📈 Graphiques :
-
-    Statique (Matplotlib)
-
-    Interactif (Plotly, avec filtres météo)
-
-🧮 Calculs statistiques :
-
-    Moyenne / max / min consommation
-
-    Coût total
-
-🧠 Notebook d’analyse complémentaire
-
-✅ Interface ligne de commande pour exécuter les étapes
 
 ## ▶️ Utilisation
 
@@ -76,13 +68,10 @@ Voici un exemple de graphique généré automatiquement par le projet :
 
 ## 🧪 Notebook
 
-Le fichier analyse_energie.ipynb permet une exploration interactive :
-
-    Statistiques descriptives
-
-    Appareils les plus énergivores
-
-    Visualisation rapide des données
+- Le fichier analyse_energie.ipynb permet une exploration interactive :
+    - Statistiques descriptives
+    - Appareils les plus énergivores
+    - Visualisation rapide des données
 
 ## 📦 Installation
 Créer un environnement virtuel et installer les dépendances :
