@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import numpy as np
 import matplotlib.dates as mdates
+import os
 
 
 def plot_data(data):
@@ -65,6 +66,19 @@ def plot_data(data):
         loc="upper left",
         ncol=1
     )
+
+    # Enregistrement automatique du graphique
+    current_dir = os.getcwd()
+    while not any(folder in os.listdir(current_dir) for folder in ['data', 'src']):
+        parent_dir = os.path.dirname(current_dir)
+        if parent_dir == current_dir:
+            break
+        current_dir = parent_dir
+
+    images_dir = os.path.join(current_dir, "images")
+    #os.makedirs(images_dir, exist_ok=True)
+
+    plt.savefig(os.path.join(images_dir, "plot_static.png"), dpi=300)
     plt.tight_layout()
     plt.show()  # Fenêtre interactive à fermer manuellement
 
@@ -74,7 +88,6 @@ def plot_data(data):
 
 def plot_data_interactive(data):
     
-
     # Couleurs météo
     weather_colors = {
         "pluie": "gray",
@@ -168,7 +181,7 @@ def plot_data_interactive(data):
         xaxis=dict(
             title="Date",
             tickangle=45,
-            tickformat="%Y-%m-%d"
+            tickfont=dict(size=10),
         ),
         yaxis=dict(title="Consommation (kWh)", side="left"),
         yaxis2=dict(

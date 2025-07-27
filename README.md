@@ -70,6 +70,10 @@ python main.py --save-stats
 
 ## 📊 Exemple de visualisation
 
+Voici un exemple de graphique généré automatiquement par le projet :
+
+![Graphique consommation énergétique](images/plot_static.png)
+
 ## 🧪 Notebook
 
 Le fichier analyse_energie.ipynb permet une exploration interactive :
