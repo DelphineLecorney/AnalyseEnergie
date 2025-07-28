@@ -95,14 +95,11 @@ streamlit run app.py
 ---
 🧰 Fonctionnalités
 - 📈 Affichage de graphiques :
-
   - Statique (matplotlib)
   - Interactif (Plotly)
-
 - 💰 Analyse des :
   - coûts
   - consommations
   - index d’énergie
-
 - ☀️ Visualisation conditionnée par la météo (grand soleil, pluie, gris, etc.)
 - 🔄 Upload d’un fichier personnalisé pour une analyse sur vos propres données
