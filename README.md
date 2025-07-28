@@ -31,7 +31,6 @@ Structure du projet :
 │       └── visualization.py
 └── requirements.txt
 └── tree_view.py
-
 ```
 
 ## 🔍 Fonctionnalités principales
@@ -79,5 +78,31 @@ Créer un environnement virtuel et installer les dépendances :
 python -m venv venv
 source venv/bin/activate  # ou venv\Scripts\activate sous Windows
 pip install -r requirements.txt
-
 ```
+
+## 📊 Dashboard interactif avec Streamlit
+
+Cette application propose un tableau de bord interactif pour visualiser les données de consommation énergétique.
+
+### ▶️ Lancer l'application
+
+Puis, exécutez la commande suivante depuis la racine du projet :
+```plaintext
+streamlit run app.py
+```
+- Par défaut, les données du fichier data/energy_data.csv sont chargées automatiquement.
+- Vous pouvez également importer votre propre fichier CSV via l’interface.
+---
+🧰 Fonctionnalités
+- 📈 Affichage de graphiques :
+
+  - Statique (matplotlib)
+  - Interactif (Plotly)
+
+- 💰 Analyse des :
+  - coûts
+  - consommations
+  - index d’énergie
+
+- ☀️ Visualisation conditionnée par la météo (grand soleil, pluie, gris, etc.)
+- 🔄 Upload d’un fichier personnalisé pour une analyse sur vos propres données
